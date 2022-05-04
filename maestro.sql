@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 30, 2022 at 04:37 AM
+-- Generation Time: May 04, 2022 at 04:22 AM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `maestro`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `alamat`
+--
+
+CREATE TABLE `alamat` (
+  `idalamat` int(11) NOT NULL,
+  `users_id` bigint(20) UNSIGNED NOT NULL,
+  `alamat` varchar(45) NOT NULL,
+  `telepon` varchar(45) NOT NULL,
+  `latitude` varchar(45) NOT NULL,
+  `longitude` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `alamat`
+--
+
+INSERT INTO `alamat` (`idalamat`, `users_id`, `alamat`, `telepon`, `latitude`, `longitude`) VALUES
+(1, 2, 'Jln Kokos Raya No. 34', '038121402', '-8.8441405', '121.6677423');
 
 -- --------------------------------------------------------
 
@@ -72,8 +94,9 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`users_id`, `product_idproduct`, `qty`) VALUES
-(2, 7, '2'),
-(2, 8, '1');
+(2, 7, '3'),
+(2, 8, '5'),
+(2, 11, '1');
 
 -- --------------------------------------------------------
 
@@ -365,6 +388,13 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `ro
 --
 
 --
+-- Indexes for table `alamat`
+--
+ALTER TABLE `alamat`
+  ADD PRIMARY KEY (`idalamat`),
+  ADD KEY `fk_alamat_users1_idx` (`users_id`);
+
+--
 -- Indexes for table `booking`
 --
 ALTER TABLE `booking`
@@ -478,6 +508,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `alamat`
+--
+ALTER TABLE `alamat`
+  MODIFY `idalamat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
@@ -552,6 +588,12 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `alamat`
+--
+ALTER TABLE `alamat`
+  ADD CONSTRAINT `fk_alamat_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `booking`
