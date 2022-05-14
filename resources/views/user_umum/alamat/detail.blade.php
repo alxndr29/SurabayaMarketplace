@@ -60,6 +60,30 @@
             position: uluru,
             map: map,
         });
+        // Create the initial InfoWindow.
+        let infoWindow = new google.maps.InfoWindow({
+            content: "Click the map to get Lat/Lng!",
+            position: uluru,
+        });
+
+        //infoWindow.open(map);
+        // Configure the click listener.
+        map.addListener("click", (mapsMouseEvent) => {
+            // Close the current InfoWindow.
+            infoWindow.close();
+            // Create a new InfoWindow.
+            infoWindow = new google.maps.InfoWindow({
+                position: mapsMouseEvent.latLng,
+            });
+            infoWindow.setContent(
+                // JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2),
+                "Lokasi Baru",
+                // alert(mapsMouseEvent.latLng.lat().toString()),
+                // alert(mapsMouseEvent.latLng.lng().toString()),
+                $("#latitude").val(mapsMouseEvent.latLng.lat().toString()), $("#longitude").val(mapsMouseEvent.latLng.lng().toString())
+            );
+            infoWindow.open(map);
+        });
     }
 </script>
 @endsection

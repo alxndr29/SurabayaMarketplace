@@ -31,7 +31,7 @@
                         <td>{{$value->tanggal}}</td>
                         <td>{{$value->jam_mulai}}</td>
                         <td>{{$value->jam_akhir}}</td>
-                        <td>{{$value->nameshop}}</td>
+                        <td><a href="{{route('home.detailshop',['id' => $value->idshop])}}">{{$value->nameshop}}</a></td>
                         <td>
                             <button type="button" data-toggle="modal" data-target="#detail-booking-{{$value->idjadwal}}" class="btn btn-warning btn-circle">
                                 <i class="fas fa-edit"></i>

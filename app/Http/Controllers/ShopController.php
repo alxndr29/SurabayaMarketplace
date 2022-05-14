@@ -70,13 +70,18 @@ class ShopController extends Controller
     public function show($id)
     {
         //
+        $jumlah_terjual = DB::table('order_has_product')
+        ->join('order','order.idorder','=','order_has_product.order_idorder')
+        ->where('order.shop_idshop',$id)
+        ->sum('order_has_product.qty');
+        // return $jumlah_terjual;
         $data = DB::table('shop')->where('idshop','=',$id)->first();
         $product = DB::table('product')
             ->join('product_image', 'product_image.product_idproduct', '=', 'product.idproduct')
             ->where('product.shop_idshop','=',$id)
             ->select('product.*', 'product_image.name as picture')
             ->paginate(3);
-        return view('user_umum.detailtoko.detailtoko', compact('data','product'));
+        return view('user_umum.detailtoko.detailtoko', compact('data','product','jumlah_terjual'));
     }
 
     /**

@@ -29,7 +29,7 @@ class JadwalController extends Controller
         ->join('shop','shop.idshop','=','jadwal.shop_idshop')
         ->join('users','users.id','=','jadwal.users_id')
         ->where('users.id', Auth::user()->id)
-        ->select('jadwal.*','users.name as nameuser','shop.name as nameshop','shop.address','shop.phone','shop.latitude','shop.longitude')
+        ->select('jadwal.*','users.name as nameuser','shop.name as nameshop','shop.address','shop.phone','shop.latitude','shop.longitude','shop.idshop')
         ->get();
         //return $data;
         return view('user_umum.jadwal.jadwal', compact('data'));

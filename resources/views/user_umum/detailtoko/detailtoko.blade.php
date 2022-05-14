@@ -17,11 +17,13 @@
                     </div>
                     <div class="p-2">
                         <div class="mx-auto">
-                            <h4>{{$data->name}}</h4>
-                            <br>
-                            <h5>Total Produk Yang Terjual: ((Under Maintenance))</h5>
+                            <div class="row">
+                                <h4>{{$data->name}}</h4>
+                            </div>
+                            <div class="row">
+                                <p>Total Produk Yang Terjual: {{$jumlah_terjual}}</p>
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -46,8 +48,8 @@
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="produk" role="tabpanel" aria-labelledby="tab-produk">
-                        <br>
-                        <div class="d-flex flex-row">
+                       
+                        <div class="d-flex flex-row mt-1">
                             @foreach ($product as $key => $value)
                             <div class="p-2">
                                 <div class="card h-100 p-2" style="width: 18rem;">

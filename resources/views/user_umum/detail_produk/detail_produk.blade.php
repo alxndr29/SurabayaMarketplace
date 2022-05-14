@@ -53,6 +53,7 @@
         </div>
     </div>
 </div>
+<br>
 <div class="row">
     <div class="col">
         <div class="card">
@@ -60,20 +61,30 @@
                 Review
             </div>
             <div class="card-body">
+                @foreach ($review as $key => $value)
                 <div class="row">
                     <div class="col-1">
                         <img class="card-img-top mx-auto" src="{{asset('product_picture/'.$data->picture)}}" alt="Card image cap" style="max-width: 150px; max-height: 150px;">
                     </div>
                     <div class="col">
-                        Alexander Evan
+                        <b>{{$value->nama}}</b> <span class="badge badge-primary">{{$value->date}}</span>
                         <br>
-                        29 Oktober 1999
-                        <br>
+                        @if ($value->star == "1")
+                        &#9734;
+                        @elseif ($value->star == "2")
+                        &#9734;&#9734;
+                        @elseif ($value->star == "3")
+                        &#9734;&#9734;&#9734;
+                        @elseif ($value->star == "4")
                         &#9734;&#9734;&#9734;&#9734;
+                        @else
+                        &#9734;&#9734;&#9734;&#9734;&#9734;
+                        @endif
                         <br>
-                        Hello World!
+                        Pesan: {{$value->message}}
                     </div>
                 </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -95,13 +106,13 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Pesan</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" rows="3"></textarea>
+                            <textarea class="form-control" rows="3" id="isi_chat"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-primary" id="btnKirimPesan">Kirim</button>
                 </div>
             </form>
         </div>
@@ -238,9 +249,35 @@
             $("#totalHarga").val(this.value * $("#hargaProduk").val());
         }
     });
+    $("#btnKirimPesan").click(function() {
+        kirimPesan();
+    });
 
     function addBooking() {
 
+    }
+
+    function kirimPesan() {
+        $.ajax({
+            url: "{{route('chatstore.user')}}",
+            method: 'POST',
+            data: {
+                _token: "{{ csrf_token() }}",
+                users_id: "{{ Auth::user()->id }}",
+                shop_idshop: "{{$data->idshop}}",
+                isi_chat: $("#isi_chat").val(),
+                sender: "user"
+            },
+            success: function(response) {
+                if (response == "berhasil") {
+                    swal("Berhasil Mengirimkan Pesan");
+                }
+                console.log(response);
+            },
+            error: function(error) {
+                swal(error);
+            }
+        });
     }
 
     function addKeranjang() {

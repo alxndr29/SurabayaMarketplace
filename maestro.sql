@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 04, 2022 at 04:22 AM
+-- Generation Time: May 14, 2022 at 05:17 AM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -41,7 +41,7 @@ CREATE TABLE `alamat` (
 --
 
 INSERT INTO `alamat` (`idalamat`, `users_id`, `alamat`, `telepon`, `latitude`, `longitude`) VALUES
-(1, 2, 'Jln Kokos Raya No. 34', '038121402', '-8.8441405', '121.6677423');
+(2, 2, 'Jln Kokos Raya No. 34', '123', '-8.842405868735971', '121.65452397397462');
 
 -- --------------------------------------------------------
 
@@ -94,9 +94,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`users_id`, `product_idproduct`, `qty`) VALUES
-(2, 7, '3'),
-(2, 8, '5'),
-(2, 11, '1');
+(2, 8, '1');
 
 -- --------------------------------------------------------
 
@@ -128,13 +126,26 @@ INSERT INTO `category` (`idcategory`, `name`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `chat` (
   `idchat` int(11) NOT NULL,
-  `message` varchar(45) DEFAULT NULL,
-  `time` datetime DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `users_id_sender` bigint(20) UNSIGNED NOT NULL,
-  `users_id_receiver` bigint(20) UNSIGNED NOT NULL
+  `time` datetime DEFAULT CURRENT_TIMESTAMP,
+  `isi_chat` varchar(45) DEFAULT NULL,
+  `sender` varchar(45) DEFAULT NULL,
+  `shop_idshop` int(11) NOT NULL,
+  `users_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `chat`
+--
+
+INSERT INTO `chat` (`idchat`, `time`, `isi_chat`, `sender`, `shop_idshop`, `users_id`) VALUES
+(3, '2022-05-05 22:51:51', 'j', 'user', 1, 2),
+(4, '2022-05-05 22:55:14', 'j8', 'user', 1, 2),
+(5, '2022-05-07 09:19:19', 'sss', 'user', 3, 2),
+(6, '2022-05-07 10:30:44', 'p', 'user', 3, 2),
+(7, '2022-05-07 10:48:50', 'm', 'seller', 1, 2),
+(8, '2022-05-07 10:57:58', 'p', 'seller', 1, 2),
+(9, '2022-05-07 10:58:12', ';', 'seller', 1, 2),
+(10, '2022-05-07 10:59:14', 'p', 'seller', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -218,6 +229,53 @@ CREATE TABLE `notification` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `order`
+--
+
+CREATE TABLE `order` (
+  `idorder` int(11) NOT NULL,
+  `users_id` bigint(20) UNSIGNED NOT NULL,
+  `shop_idshop` int(11) NOT NULL,
+  `alamat_idalamat` int(11) NOT NULL,
+  `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `total` varchar(45) NOT NULL,
+  `status_order` varchar(45) NOT NULL,
+  `is_review` varchar(45) NOT NULL DEFAULT 'false'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `order`
+--
+
+INSERT INTO `order` (`idorder`, `users_id`, `shop_idshop`, `alamat_idalamat`, `tanggal`, `total`, `status_order`, `is_review`) VALUES
+(2, 2, 1, 2, '2022-05-08 13:44:19', '400000', 'Selesai', 'true'),
+(3, 2, 3, 2, '2022-05-08 13:56:55', '60000', 'Menunggu Verifikasi Pembayaran', 'false');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_has_product`
+--
+
+CREATE TABLE `order_has_product` (
+  `order_idorder` int(11) NOT NULL,
+  `product_idproduct` int(11) NOT NULL,
+  `qty` int(11) DEFAULT NULL,
+  `subtotal` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `order_has_product`
+--
+
+INSERT INTO `order_has_product` (`order_idorder`, `product_idproduct`, `qty`, `subtotal`) VALUES
+(2, 7, 3, 375000),
+(2, 8, 5, 25000),
+(3, 11, 1, 60000);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `password_resets`
 --
 
@@ -230,13 +288,36 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `payment`
+--
+
+CREATE TABLE `payment` (
+  `idpayment` int(11) NOT NULL,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `image` varchar(45) NOT NULL,
+  `verified_at` datetime DEFAULT NULL,
+  `order_idorder` int(11) NOT NULL,
+  `nama_rekening_pemilik` varchar(45) DEFAULT NULL,
+  `nomor_rekening_pemilik` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`idpayment`, `date`, `image`, `verified_at`, `order_idorder`, `nama_rekening_pemilik`, `nomor_rekening_pemilik`) VALUES
+(2, '2022-05-11 23:05:55', '2.jpg', '2022-05-11 15:10:44', 2, 'Q1im1a', '12312');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `product`
 --
 
 CREATE TABLE `product` (
   `idproduct` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `price` varchar(45) DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
   `desc` varchar(200) DEFAULT NULL,
   `category_idcategory` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -252,11 +333,11 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`idproduct`, `name`, `price`, `desc`, `category_idcategory`, `created_at`, `updated_at`, `shop_product_category_idshop_product_category`, `shop_idshop`, `berat`, `stok`) VALUES
-(7, 'Semen gresik', '125000', 'wtf', 2, NULL, NULL, 3, 1, 1, 100),
-(8, 'Sayu', '5000', 'fgdfgdf', 2, NULL, NULL, 3, 1, 2, 200),
-(9, 'Tuturu', '99000', 'dfgdfg', 2, NULL, NULL, 3, 1, 3, 300),
-(10, 'Kaguya', '23000', 'Nona Kaguya', 1, NULL, NULL, 1, 1, 87, 77),
-(11, 'Edelynlin', '60000', 'mantap', 1, NULL, NULL, 5, 3, 1000, 100);
+(7, 'Semen gresik', 125000, 'wtf', 2, NULL, NULL, 3, 1, 1, 100),
+(8, 'Sayu', 5000, 'fgdfgdf', 2, NULL, NULL, 3, 1, 2, 200),
+(9, 'Tuturu', 99000, 'dfgdfg', 2, NULL, NULL, 3, 1, 3, 300),
+(10, 'Kaguya', 23000, 'Nona Kaguya', 1, NULL, NULL, 1, 1, 87, 77),
+(11, 'Edelynlin', 60000, 'mantap', 1, NULL, NULL, 5, 3, 1000, 100);
 
 -- --------------------------------------------------------
 
@@ -300,6 +381,30 @@ INSERT INTO `product_image` (`idproduct_image`, `name`, `product_idproduct`, `cr
 (5, '9.jpg', 9, NULL, NULL),
 (6, '10.jpg', 10, NULL, NULL),
 (7, '11.jpg', 11, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `review`
+--
+
+CREATE TABLE `review` (
+  `users_id` bigint(20) UNSIGNED NOT NULL,
+  `product_idproduct` int(11) NOT NULL,
+  `order_idorder` int(11) NOT NULL,
+  `date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `star` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `message` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `idreview` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `review`
+--
+
+INSERT INTO `review` (`users_id`, `product_idproduct`, `order_idorder`, `date`, `star`, `message`, `idreview`) VALUES
+(2, 7, 2, '2022-05-14 10:58:13', '2', 'dua', 3),
+(2, 8, 2, '2022-05-14 10:58:13', '3', 'tiga', 4);
 
 -- --------------------------------------------------------
 
@@ -422,8 +527,8 @@ ALTER TABLE `category`
 --
 ALTER TABLE `chat`
   ADD PRIMARY KEY (`idchat`),
-  ADD KEY `fk_chat_users1_idx` (`users_id_sender`),
-  ADD KEY `fk_chat_users2_idx` (`users_id_receiver`);
+  ADD KEY `fk_chat_shop1_idx` (`shop_idshop`),
+  ADD KEY `fk_chat_users1_idx` (`users_id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -453,10 +558,34 @@ ALTER TABLE `notification`
   ADD KEY `fk_notification_users1_idx` (`users_id`);
 
 --
+-- Indexes for table `order`
+--
+ALTER TABLE `order`
+  ADD PRIMARY KEY (`idorder`),
+  ADD KEY `fk_order_users1_idx` (`users_id`),
+  ADD KEY `fk_order_shop1_idx` (`shop_idshop`),
+  ADD KEY `fk_order_alamat1_idx` (`alamat_idalamat`);
+
+--
+-- Indexes for table `order_has_product`
+--
+ALTER TABLE `order_has_product`
+  ADD PRIMARY KEY (`order_idorder`,`product_idproduct`),
+  ADD KEY `fk_order_has_product_product1_idx` (`product_idproduct`),
+  ADD KEY `fk_order_has_product_order1_idx` (`order_idorder`);
+
+--
 -- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `payment`
+--
+ALTER TABLE `payment`
+  ADD PRIMARY KEY (`idpayment`),
+  ADD KEY `fk_payment_order1_idx` (`order_idorder`);
 
 --
 -- Indexes for table `product`
@@ -481,6 +610,15 @@ ALTER TABLE `product_bookmark`
 ALTER TABLE `product_image`
   ADD PRIMARY KEY (`idproduct_image`),
   ADD KEY `fk_product_image_product1_idx` (`product_idproduct`);
+
+--
+-- Indexes for table `review`
+--
+ALTER TABLE `review`
+  ADD PRIMARY KEY (`idreview`),
+  ADD KEY `fk_users_has_product_product2_idx` (`product_idproduct`),
+  ADD KEY `fk_users_has_product_users2_idx` (`users_id`),
+  ADD KEY `fk_users_has_product_order1_idx` (`order_idorder`);
 
 --
 -- Indexes for table `shop`
@@ -511,7 +649,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `alamat`
 --
 ALTER TABLE `alamat`
-  MODIFY `idalamat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idalamat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `booking`
@@ -529,7 +667,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `idchat` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idchat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -556,6 +694,18 @@ ALTER TABLE `notification`
   MODIFY `idnotification` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `order`
+--
+ALTER TABLE `order`
+  MODIFY `idorder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `payment`
+--
+ALTER TABLE `payment`
+  MODIFY `idpayment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
@@ -566,6 +716,12 @@ ALTER TABLE `product`
 --
 ALTER TABLE `product_image`
   MODIFY `idproduct_image` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `review`
+--
+ALTER TABLE `review`
+  MODIFY `idreview` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `shop`
@@ -614,8 +770,8 @@ ALTER TABLE `cart`
 -- Constraints for table `chat`
 --
 ALTER TABLE `chat`
-  ADD CONSTRAINT `fk_chat_users1` FOREIGN KEY (`users_id_sender`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_chat_users2` FOREIGN KEY (`users_id_receiver`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_chat_shop1` FOREIGN KEY (`shop_idshop`) REFERENCES `shop` (`idshop`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_chat_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `jadwal`
@@ -629,6 +785,27 @@ ALTER TABLE `jadwal`
 --
 ALTER TABLE `notification`
   ADD CONSTRAINT `fk_notification_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `order`
+--
+ALTER TABLE `order`
+  ADD CONSTRAINT `fk_order_alamat1` FOREIGN KEY (`alamat_idalamat`) REFERENCES `alamat` (`idalamat`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_order_shop1` FOREIGN KEY (`shop_idshop`) REFERENCES `shop` (`idshop`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_order_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `order_has_product`
+--
+ALTER TABLE `order_has_product`
+  ADD CONSTRAINT `fk_order_has_product_order1` FOREIGN KEY (`order_idorder`) REFERENCES `order` (`idorder`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_order_has_product_product1` FOREIGN KEY (`product_idproduct`) REFERENCES `product` (`idproduct`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `payment`
+--
+ALTER TABLE `payment`
+  ADD CONSTRAINT `fk_payment_order1` FOREIGN KEY (`order_idorder`) REFERENCES `order` (`idorder`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `product`
@@ -650,6 +827,14 @@ ALTER TABLE `product_bookmark`
 --
 ALTER TABLE `product_image`
   ADD CONSTRAINT `fk_product_image_product1` FOREIGN KEY (`product_idproduct`) REFERENCES `product` (`idproduct`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `review`
+--
+ALTER TABLE `review`
+  ADD CONSTRAINT `fk_users_has_product_order1` FOREIGN KEY (`order_idorder`) REFERENCES `order` (`idorder`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_users_has_product_product2` FOREIGN KEY (`product_idproduct`) REFERENCES `product` (`idproduct`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_users_has_product_users2` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `shop`

@@ -21,7 +21,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
 
     <link rel="stylesheet" type="text/css" href="{{asset('template/js/fullcalendar-5.11.0/main.css')}}">
-
+    <style>
+        @yield('anothercss');
+    </style>
 </head>
 
 <body id="page-top">
@@ -86,6 +88,18 @@
                 <a class="nav-link" href="{{route('jadwal.shop')}}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Jadwal</span></a>
+            </li>
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('chat.shop')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Chat</span></a>
+            </li>
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('order.shop')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Order</span></a>
             </li>
         </ul>
         <!-- End of Sidebar -->
@@ -254,7 +268,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-                                
+
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

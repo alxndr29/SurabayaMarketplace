@@ -21,30 +21,47 @@ class ProductController extends Controller
         $data = DB::table('product')
             ->join('product_image', 'product_image.product_idproduct', '=', 'product.idproduct')
             ->where('product.shop_idshop', $shop->idshop())
-            ->select('product.*','product_image.name as picture')
+            ->select('product.*', 'product_image.name as picture')
             ->get();
         return view('pemilik_usaha.product.index', compact('data'));
     }
 
-    public function detailUser($id){
+    public function detailUser($id)
+    {
         $data = DB::table('product')
             ->join('product_image', 'product_image.product_idproduct', '=', 'product.idproduct')
-            ->join('category','category.idcategory','=','product.category_idcategory')
-            ->join('shop','shop.idshop','=','product.shop_idshop')
+            ->join('category', 'category.idcategory', '=', 'product.category_idcategory')
+            ->join('shop', 'shop.idshop', '=', 'product.shop_idshop')
             ->where('product.idproduct', $id)
-            ->select('product.*','product_image.name as picture','category.name as nama_category','shop.idshop as idshop','shop.name as nameshop','shop.address as address')
+            ->select('product.*', 'product_image.name as picture', 'category.name as nama_category', 'shop.idshop as idshop', 'shop.name as nameshop', 'shop.address as address')
             ->first();
-
-        //dd($data);
-        return view('user_umum.detail_produk.detail_produk',compact('data'));
+        $review = DB::table('review')->join('users', 'users.id', '=', 'review.users_id')->where('review.product_idproduct', $id)->select('review.*', 'users.name as nama')->get();
+        //return $review;
+        return view('user_umum.detail_produk.detail_produk', compact('data', 'review'));
     }
-    public function search($keyword = ""){
-        $data = DB::table('product')
-            ->join('product_image', 'product_image.product_idproduct', '=', 'product.idproduct')
-            ->select('product.*', 'product_image.name as picture')
-            ->where('product.name', 'like', '%' . $keyword . '%')
-            ->get();
-        return view('user_umum.product_search.search', compact('data'));
+    public function search($keyword = "", $filter = "asc")
+    {
+       
+        if ($filter == "asc") {
+            $data = DB::table('product')
+                ->join('product_image', 'product_image.product_idproduct', '=', 'product.idproduct')
+                ->select('product.*', 'product_image.name as picture', 'shop.name as nameshop')
+                ->join('shop', 'shop.idshop', 'product.shop_idshop')
+                ->orderBy('product.price', 'asc')
+                ->where('product.name', 'like', '%' . $keyword . '%')
+                ->get();
+        } else {
+            $data = DB::table('product')
+                ->join('product_image', 'product_image.product_idproduct', '=', 'product.idproduct')
+                ->select('product.*', 'product_image.name as picture', 'shop.name as nameshop')
+                ->join('shop', 'shop.idshop', 'product.shop_idshop')
+                ->orderBy('product.price', 'desc')
+                ->where('product.name', 'like', '%' . $keyword . '%')
+                ->get();
+                // return "masuk sini";
+        }
+        //return $data;
+        return view('user_umum.product_search.search', compact('data','keyword'));
     }
     /**
      * Show the form for creating a new resource.
@@ -88,8 +105,8 @@ class ProductController extends Controller
                 // $destinationPath = public_path('/product_picture');
                 // $image->move($destinationPath, $name);
                 // $this->save();
-               
-                $imageName = $id.".".$request->image->extension();
+
+                $imageName = $id . "." . $request->image->extension();
                 DB::table('product_image')->insert([
                     'name' => $imageName,
                     'product_idproduct' => $id
@@ -146,7 +163,4 @@ class ProductController extends Controller
     {
         //
     }
-
-   
-    
 }

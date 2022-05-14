@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+
 class AlamatController extends Controller
 {
     /**
@@ -15,7 +16,7 @@ class AlamatController extends Controller
     public function index()
     {
         //
-        $data = DB::table('alamat')->where('users_id','=', Auth::user()->id)->get();
+        $data = DB::table('alamat')->where('users_id', '=', Auth::user()->id)->get();
         return view('user_umum.alamat.alamat', compact('data'));
     }
 
@@ -38,7 +39,7 @@ class AlamatController extends Controller
     public function store(Request $request)
     {
         //
-        try{
+        try {
             DB::table('alamat')->insert([
                 'users_id' => Auth::user()->id,
                 'alamat' => $request->get('alamat'),
@@ -47,7 +48,7 @@ class AlamatController extends Controller
                 'longitude' => $request->get('longitude')
             ]);
             return redirect()->back()->with('sukses', 'Berhasil Menambahkan Alamat');
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return redirect()->back()->with('gagal', $e->getMessage());
         }
     }
@@ -86,7 +87,19 @@ class AlamatController extends Controller
     public function update(Request $request, $id)
     {
         //
-        return $request->all();
+        try {
+            DB::table('alamat')->where('idalamat', '=', $id)->update([
+                'users_id' => Auth::user()->id,
+                'alamat' => $request->get('alamat'),
+                'telepon' => $request->get('telepon'),
+                'latitude' => $request->get('latitude'),
+                'longitude' => $request->get('longitude')
+            ]);
+            return redirect('user/alamat')->with('sukses', 'Berhasil Mengubah Alamat');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('gagal', $e->getMessage());
+        }
+        // return $request->all();
     }
 
     /**
@@ -98,5 +111,11 @@ class AlamatController extends Controller
     public function destroy($id)
     {
         //
+        try{
+            DB::table('alamat')->where('idalamat','=',$id)->delete();
+            return redirect()->back()->with('sukses', 'Berhasil Mengubah Alamat');
+        }catch(\Exception $e){
+            return redirect()->back()->with('gagal', $e->getMessage());
+        }
     }
 }

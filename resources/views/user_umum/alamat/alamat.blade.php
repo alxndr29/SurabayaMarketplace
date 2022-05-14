@@ -40,9 +40,13 @@
                             </a>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-warning btn-circle">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                            <form method="post" action="{{route('alamatdestroy.user', ['id' => $value->idalamat])}}">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-warning btn-circle">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
@@ -128,6 +132,9 @@
             position: uluru,
             map: map,
         });
+
+        
+
     }
 </script>
 @endsection

@@ -19,6 +19,10 @@
     <link href="{{asset('template/css/sb-admin-2.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="{{asset('template/js/fullcalendar-5.11.0/main.css')}}">
+
+    <style>
+        @yield('anothercss');
+    </style>
 </head>
 
 <body id="page-top">
@@ -50,7 +54,7 @@
             </li>
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{route('chat.user')}}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Chat</span></a>
             </li>
@@ -83,6 +87,18 @@
                 <a class="nav-link" href="{{route('jadwal.user')}}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Jadwal</span></a>
+            </li>
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('order.user')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Order</span></a>
+            </li>
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('geolocation.user')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Geolocation</span></a>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
