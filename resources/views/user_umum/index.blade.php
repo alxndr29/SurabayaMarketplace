@@ -1,7 +1,7 @@
 @extends('template.blank_userumum')
 @section('content')
 <h1 class="h3 mb-4 text-gray-800">Home</h1>
-<div class="d-flex flex-row">
+<div class="d-flex flex-wrap">
     @foreach ($data as $key => $value)
     <div class="p-2">
         <div class="card h-100 p-2" style="width: 18rem;">

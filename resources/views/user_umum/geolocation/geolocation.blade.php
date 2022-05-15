@@ -11,16 +11,11 @@
     <div class="d-flex flex-row">
         <div class="p-2">
             <div class="form-group">
-                <input type="number" class="form-control" placeholder="min">
+                <input type="number" id="rangeNumber" class="form-control" placeholder="max">
             </div>
         </div>
         <div class="p-2">
-            <div class="form-group">
-                <input type="number" class="form-control" placeholder="max">
-            </div>
-        </div>
-        <div class="p-2">
-            <button type="button" class="btn btn-primary">Primary</button>
+            <button type="button" id="btnSearchRange" class="btn btn-primary">Cari</button>
         </div>
     </div>
 </div>
@@ -56,6 +51,68 @@
         lat_now = (position.coords.latitude);
         lot_now = (position.coords.longitude);
         initMap(position.coords.latitude, position.coords.longitude);
+    }
+    $("#btnSearchRange").on('click', function() {
+
+        search();
+    });
+
+    function search() {
+        var range = $("#rangeNumber").val();
+
+        initMap(lat_now, lot_now);
+        // The location of Uluru
+        const uluru = {
+            lat: lat_now,
+            lng: lot_now
+        };
+        // The map, centered at Uluru
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 15,
+            center: uluru,
+        });
+        // The marker, positioned at Uluru
+        const marker = new google.maps.Marker({
+            label: 'Lokasi mu',
+            position: uluru,
+            map: map,
+        });
+        getDataPenjual();
+
+        var marker_a, i;
+        var infowindow_a = new google.maps.InfoWindow();
+        $.ajax({
+            url: "{{route('geolocationdata.user')}}",
+            method: 'GET',
+            success: function(response) {
+                console.log(response);
+                $.each(response, function(j, k) {
+                    console.log(k.latitude + "/" + k.longitude);
+                    if (haversine(lat_now, lot_now, parseFloat(k.latitude), parseFloat(k.longitude)) >= range) {
+                        marker_a = new google.maps.Marker({
+                            position: new google.maps.LatLng(parseFloat(k.latitude), parseFloat(k.longitude)),
+                            map: map,
+                            label: k.name
+                        });
+
+                        google.maps.event.addListener(marker_a, 'click', (function(marker_a, i) {
+                            return function() {
+                                infowindow_a.setContent('<h1>' +
+                                    k.name + '</h1>' + '<br>' +
+                                    k.address + '<br>' + 'Jarak: ' +
+                                    haversine(lat_now, lot_now, parseFloat(k.latitude), parseFloat(k.longitude)) + " km." +
+                                    '<br> <a class="btn btn-primary" target="_blank" href="https://www.google.com/maps/search/?api=1&query=' + k.latitude + '8%2C' + k.longitude + '">Petunjuk Arah</a>');
+                                infowindow_a.open(map, marker_a);
+                            }
+                        })(marker_a, i));
+                        i++;
+                    }
+                });
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
     }
 
     function initMap(lat, lot) {
@@ -96,18 +153,16 @@
 
                     google.maps.event.addListener(marker_a, 'click', (function(marker_a, i) {
                         return function() {
-                            infowindow_a.setContent('<h1>' + 
-                            k.name + '</h1>' + '<br>' + 
-                            k.address + '<br>' + 'Jarak: ' + 
-                            haversine(lat_now, lot_now, parseFloat(k.latitude), parseFloat(k.longitude)) + " km." +
-                            '<br> <a class="btn btn-primary" target="_blank" href="https://www.google.com/maps/search/?api=1&query='+k.latitude+'8%2C'+k.longitude+'">Petunjuk Arah</a>');
+                            infowindow_a.setContent('<h1>' +
+                                k.name + '</h1>' + '<br>' +
+                                k.address + '<br>' + 'Jarak: ' +
+                                haversine(lat_now, lot_now, parseFloat(k.latitude), parseFloat(k.longitude)) + " km." +
+                                '<br> <a class="btn btn-primary" target="_blank" href="https://www.google.com/maps/search/?api=1&query=' + k.latitude + '8%2C' + k.longitude + '">Petunjuk Arah</a>');
                             infowindow_a.open(map, marker_a);
                         }
                     })(marker_a, i));
                     i++;
                 });
-
-
             },
             error: function(error) {
                 console.log(error);

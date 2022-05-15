@@ -9,28 +9,7 @@
 @endif
 
 <div id="listKeranjang">
-    <div class="card p-3">
-        <div class="card-header">
-            Toko A
-        </div>
-        <div class="card-body">
-            <div class="d-flex flex-row mb-3">
-                <div class="p-2">
-                    <img style="width:100px; height:100px;" src="{{asset('template/img/undraw_profile_1.svg')}}">
-                </div>
-                <div class="p-2">
-                    <a href="">Produk A</a>
-                    <br>
-                    Harga: Rp. 6000
-                    <br>
-                    Total Harga: Rp. 18000
-                    <br>
-                    Jumlah: <input type="number" class="form-control">
-                </div>
-            </div>
-
-        </div>
-    </div>
+   
 </div>
 @endsection
 @section('script')

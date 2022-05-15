@@ -79,7 +79,7 @@ class CheckoutController extends Controller
             }
             DB::table('order')->where('idorder', '=', $id)->update(['total' => $total]);
             DB::commit();
-            return $request->all();
+            return redirect('user/order')->with('sukses', 'Berhasil Melakukan Checkout');
         } catch (\Exception $e) {
             DB::rollback();
             return $e->getMessage();

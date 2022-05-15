@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.2
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 14, 2022 at 05:17 AM
--- Server version: 5.7.33
--- PHP Version: 7.4.19
+-- Waktu pembuatan: 15 Bulan Mei 2022 pada 08.43
+-- Versi server: 5.7.33
+-- Versi PHP: 7.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `alamat`
+-- Struktur dari tabel `alamat`
 --
 
 CREATE TABLE `alamat` (
@@ -37,7 +37,7 @@ CREATE TABLE `alamat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `alamat`
+-- Dumping data untuk tabel `alamat`
 --
 
 INSERT INTO `alamat` (`idalamat`, `users_id`, `alamat`, `telepon`, `latitude`, `longitude`) VALUES
@@ -46,7 +46,7 @@ INSERT INTO `alamat` (`idalamat`, `users_id`, `alamat`, `telepon`, `latitude`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `booking`
+-- Struktur dari tabel `booking`
 --
 
 CREATE TABLE `booking` (
@@ -71,7 +71,7 @@ CREATE TABLE `booking` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `booking`
+-- Dumping data untuk tabel `booking`
 --
 
 INSERT INTO `booking` (`idbooking`, `name_customer`, `name_product`, `jumlah`, `total_harga`, `metode_payment`, `metode_pengiriman`, `date_booking`, `date_pengambilan`, `time_pengambilan`, `alamat`, `status`, `shop_idshop`, `users_id`, `product_idproduct`, `note`, `harga`, `nama_usaha`) VALUES
@@ -80,7 +80,7 @@ INSERT INTO `booking` (`idbooking`, `name_customer`, `name_product`, `jumlah`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cart`
+-- Struktur dari tabel `cart`
 --
 
 CREATE TABLE `cart` (
@@ -89,17 +89,10 @@ CREATE TABLE `cart` (
   `qty` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`users_id`, `product_idproduct`, `qty`) VALUES
-(2, 8, '1');
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- Struktur dari tabel `category`
 --
 
 CREATE TABLE `category` (
@@ -110,7 +103,7 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `category`
+-- Dumping data untuk tabel `category`
 --
 
 INSERT INTO `category` (`idcategory`, `name`, `created_at`, `updated_at`) VALUES
@@ -121,7 +114,7 @@ INSERT INTO `category` (`idcategory`, `name`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chat`
+-- Struktur dari tabel `chat`
 --
 
 CREATE TABLE `chat` (
@@ -134,7 +127,7 @@ CREATE TABLE `chat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `chat`
+-- Dumping data untuk tabel `chat`
 --
 
 INSERT INTO `chat` (`idchat`, `time`, `isi_chat`, `sender`, `shop_idshop`, `users_id`) VALUES
@@ -145,12 +138,13 @@ INSERT INTO `chat` (`idchat`, `time`, `isi_chat`, `sender`, `shop_idshop`, `user
 (7, '2022-05-07 10:48:50', 'm', 'seller', 1, 2),
 (8, '2022-05-07 10:57:58', 'p', 'seller', 1, 2),
 (9, '2022-05-07 10:58:12', ';', 'seller', 1, 2),
-(10, '2022-05-07 10:59:14', 'p', 'seller', 1, 2);
+(10, '2022-05-07 10:59:14', 'p', 'seller', 1, 2),
+(11, '2022-05-15 16:36:41', 'a', 'seller', 1, 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `failed_jobs`
+-- Struktur dari tabel `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
@@ -165,7 +159,7 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jadwal`
+-- Struktur dari tabel `jadwal`
 --
 
 CREATE TABLE `jadwal` (
@@ -182,7 +176,7 @@ CREATE TABLE `jadwal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `jadwal`
+-- Dumping data untuk tabel `jadwal`
 --
 
 INSERT INTO `jadwal` (`idjadwal`, `tanggal`, `title`, `jam_mulai`, `jam_akhir`, `status`, `shop_idshop`, `users_id`, `catatan`, `time`) VALUES
@@ -193,7 +187,7 @@ INSERT INTO `jadwal` (`idjadwal`, `tanggal`, `title`, `jam_mulai`, `jam_akhir`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- Struktur dari tabel `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -203,7 +197,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `migrations`
+-- Dumping data untuk tabel `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -214,7 +208,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `notification`
+-- Struktur dari tabel `notification`
 --
 
 CREATE TABLE `notification` (
@@ -229,7 +223,7 @@ CREATE TABLE `notification` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order`
+-- Struktur dari tabel `order`
 --
 
 CREATE TABLE `order` (
@@ -244,17 +238,18 @@ CREATE TABLE `order` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `order`
+-- Dumping data untuk tabel `order`
 --
 
 INSERT INTO `order` (`idorder`, `users_id`, `shop_idshop`, `alamat_idalamat`, `tanggal`, `total`, `status_order`, `is_review`) VALUES
 (2, 2, 1, 2, '2022-05-08 13:44:19', '400000', 'Selesai', 'true'),
-(3, 2, 3, 2, '2022-05-08 13:56:55', '60000', 'Menunggu Verifikasi Pembayaran', 'false');
+(3, 2, 3, 2, '2022-05-08 13:56:55', '60000', 'Menunggu Konfirmasi', 'false'),
+(4, 2, 1, 2, '2022-05-15 16:37:52', '23000', 'Selesai', 'true');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order_has_product`
+-- Struktur dari tabel `order_has_product`
 --
 
 CREATE TABLE `order_has_product` (
@@ -265,18 +260,19 @@ CREATE TABLE `order_has_product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `order_has_product`
+-- Dumping data untuk tabel `order_has_product`
 --
 
 INSERT INTO `order_has_product` (`order_idorder`, `product_idproduct`, `qty`, `subtotal`) VALUES
 (2, 7, 3, 375000),
 (2, 8, 5, 25000),
-(3, 11, 1, 60000);
+(3, 11, 1, 60000),
+(4, 10, 1, 23000);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `password_resets`
+-- Struktur dari tabel `password_resets`
 --
 
 CREATE TABLE `password_resets` (
@@ -288,7 +284,7 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `payment`
+-- Struktur dari tabel `payment`
 --
 
 CREATE TABLE `payment` (
@@ -302,16 +298,17 @@ CREATE TABLE `payment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `payment`
+-- Dumping data untuk tabel `payment`
 --
 
 INSERT INTO `payment` (`idpayment`, `date`, `image`, `verified_at`, `order_idorder`, `nama_rekening_pemilik`, `nomor_rekening_pemilik`) VALUES
-(2, '2022-05-11 23:05:55', '2.jpg', '2022-05-11 15:10:44', 2, 'Q1im1a', '12312');
+(2, '2022-05-11 23:05:55', '2.jpg', '2022-05-11 15:10:44', 2, 'Q1im1a', '12312'),
+(3, '2022-05-15 16:38:21', '4.png', '2022-05-15 08:41:22', 4, 'sdff', '3242');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product`
+-- Struktur dari tabel `product`
 --
 
 CREATE TABLE `product` (
@@ -329,7 +326,7 @@ CREATE TABLE `product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `product`
+-- Dumping data untuk tabel `product`
 --
 
 INSERT INTO `product` (`idproduct`, `name`, `price`, `desc`, `category_idcategory`, `created_at`, `updated_at`, `shop_product_category_idshop_product_category`, `shop_idshop`, `berat`, `stok`) VALUES
@@ -342,7 +339,7 @@ INSERT INTO `product` (`idproduct`, `name`, `price`, `desc`, `category_idcategor
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_bookmark`
+-- Struktur dari tabel `product_bookmark`
 --
 
 CREATE TABLE `product_bookmark` (
@@ -351,7 +348,7 @@ CREATE TABLE `product_bookmark` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `product_bookmark`
+-- Dumping data untuk tabel `product_bookmark`
 --
 
 INSERT INTO `product_bookmark` (`users_id`, `product_idproduct`) VALUES
@@ -360,7 +357,7 @@ INSERT INTO `product_bookmark` (`users_id`, `product_idproduct`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_image`
+-- Struktur dari tabel `product_image`
 --
 
 CREATE TABLE `product_image` (
@@ -372,7 +369,7 @@ CREATE TABLE `product_image` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `product_image`
+-- Dumping data untuk tabel `product_image`
 --
 
 INSERT INTO `product_image` (`idproduct_image`, `name`, `product_idproduct`, `created_at`, `updated_at`) VALUES
@@ -385,7 +382,7 @@ INSERT INTO `product_image` (`idproduct_image`, `name`, `product_idproduct`, `cr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `review`
+-- Struktur dari tabel `review`
 --
 
 CREATE TABLE `review` (
@@ -399,17 +396,18 @@ CREATE TABLE `review` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `review`
+-- Dumping data untuk tabel `review`
 --
 
 INSERT INTO `review` (`users_id`, `product_idproduct`, `order_idorder`, `date`, `star`, `message`, `idreview`) VALUES
 (2, 7, 2, '2022-05-14 10:58:13', '2', 'dua', 3),
-(2, 8, 2, '2022-05-14 10:58:13', '3', 'tiga', 4);
+(2, 8, 2, '2022-05-14 10:58:13', '3', 'tiga', 4),
+(2, 10, 4, '2022-05-15 16:42:08', '5', 'hlk', 5);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `shop`
+-- Struktur dari tabel `shop`
 --
 
 CREATE TABLE `shop` (
@@ -428,7 +426,7 @@ CREATE TABLE `shop` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `shop`
+-- Dumping data untuk tabel `shop`
 --
 
 INSERT INTO `shop` (`idshop`, `name`, `description`, `address`, `phone`, `latitude`, `longitude`, `created_at`, `updated_at`, `users_id`, `open_hours`, `close_hours`) VALUES
@@ -438,7 +436,7 @@ INSERT INTO `shop` (`idshop`, `name`, `description`, `address`, `phone`, `latitu
 -- --------------------------------------------------------
 
 --
--- Table structure for table `shop_product_category`
+-- Struktur dari tabel `shop_product_category`
 --
 
 CREATE TABLE `shop_product_category` (
@@ -450,7 +448,7 @@ CREATE TABLE `shop_product_category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `shop_product_category`
+-- Dumping data untuk tabel `shop_product_category`
 --
 
 INSERT INTO `shop_product_category` (`idshop_product_category`, `name`, `created_at`, `updated_at`, `shop_idshop`) VALUES
@@ -462,7 +460,7 @@ INSERT INTO `shop_product_category` (`idshop_product_category`, `name`, `created
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -479,7 +477,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`, `profile_picture`) VALUES
@@ -493,14 +491,14 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `ro
 --
 
 --
--- Indexes for table `alamat`
+-- Indeks untuk tabel `alamat`
 --
 ALTER TABLE `alamat`
   ADD PRIMARY KEY (`idalamat`),
   ADD KEY `fk_alamat_users1_idx` (`users_id`);
 
 --
--- Indexes for table `booking`
+-- Indeks untuk tabel `booking`
 --
 ALTER TABLE `booking`
   ADD PRIMARY KEY (`idbooking`),
@@ -509,7 +507,7 @@ ALTER TABLE `booking`
   ADD KEY `fk_booking_product1_idx` (`product_idproduct`);
 
 --
--- Indexes for table `cart`
+-- Indeks untuk tabel `cart`
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`users_id`,`product_idproduct`),
@@ -517,13 +515,13 @@ ALTER TABLE `cart`
   ADD KEY `fk_users_has_product_users1_idx` (`users_id`);
 
 --
--- Indexes for table `category`
+-- Indeks untuk tabel `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`idcategory`);
 
 --
--- Indexes for table `chat`
+-- Indeks untuk tabel `chat`
 --
 ALTER TABLE `chat`
   ADD PRIMARY KEY (`idchat`),
@@ -531,13 +529,13 @@ ALTER TABLE `chat`
   ADD KEY `fk_chat_users1_idx` (`users_id`);
 
 --
--- Indexes for table `failed_jobs`
+-- Indeks untuk tabel `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `jadwal`
+-- Indeks untuk tabel `jadwal`
 --
 ALTER TABLE `jadwal`
   ADD PRIMARY KEY (`idjadwal`),
@@ -545,20 +543,20 @@ ALTER TABLE `jadwal`
   ADD KEY `fk_jadwal_users1_idx` (`users_id`);
 
 --
--- Indexes for table `migrations`
+-- Indeks untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `notification`
+-- Indeks untuk tabel `notification`
 --
 ALTER TABLE `notification`
   ADD PRIMARY KEY (`idnotification`),
   ADD KEY `fk_notification_users1_idx` (`users_id`);
 
 --
--- Indexes for table `order`
+-- Indeks untuk tabel `order`
 --
 ALTER TABLE `order`
   ADD PRIMARY KEY (`idorder`),
@@ -567,7 +565,7 @@ ALTER TABLE `order`
   ADD KEY `fk_order_alamat1_idx` (`alamat_idalamat`);
 
 --
--- Indexes for table `order_has_product`
+-- Indeks untuk tabel `order_has_product`
 --
 ALTER TABLE `order_has_product`
   ADD PRIMARY KEY (`order_idorder`,`product_idproduct`),
@@ -575,20 +573,20 @@ ALTER TABLE `order_has_product`
   ADD KEY `fk_order_has_product_order1_idx` (`order_idorder`);
 
 --
--- Indexes for table `password_resets`
+-- Indeks untuk tabel `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
--- Indexes for table `payment`
+-- Indeks untuk tabel `payment`
 --
 ALTER TABLE `payment`
   ADD PRIMARY KEY (`idpayment`),
   ADD KEY `fk_payment_order1_idx` (`order_idorder`);
 
 --
--- Indexes for table `product`
+-- Indeks untuk tabel `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`idproduct`),
@@ -597,7 +595,7 @@ ALTER TABLE `product`
   ADD KEY `fk_product_shop1_idx` (`shop_idshop`);
 
 --
--- Indexes for table `product_bookmark`
+-- Indeks untuk tabel `product_bookmark`
 --
 ALTER TABLE `product_bookmark`
   ADD PRIMARY KEY (`users_id`,`product_idproduct`),
@@ -605,14 +603,14 @@ ALTER TABLE `product_bookmark`
   ADD KEY `fk_users_has_product1_users1_idx` (`users_id`);
 
 --
--- Indexes for table `product_image`
+-- Indeks untuk tabel `product_image`
 --
 ALTER TABLE `product_image`
   ADD PRIMARY KEY (`idproduct_image`),
   ADD KEY `fk_product_image_product1_idx` (`product_idproduct`);
 
 --
--- Indexes for table `review`
+-- Indeks untuk tabel `review`
 --
 ALTER TABLE `review`
   ADD PRIMARY KEY (`idreview`),
@@ -621,138 +619,138 @@ ALTER TABLE `review`
   ADD KEY `fk_users_has_product_order1_idx` (`order_idorder`);
 
 --
--- Indexes for table `shop`
+-- Indeks untuk tabel `shop`
 --
 ALTER TABLE `shop`
   ADD PRIMARY KEY (`idshop`),
   ADD KEY `fk_shop_users_idx` (`users_id`);
 
 --
--- Indexes for table `shop_product_category`
+-- Indeks untuk tabel `shop_product_category`
 --
 ALTER TABLE `shop_product_category`
   ADD PRIMARY KEY (`idshop_product_category`),
   ADD KEY `fk_shop_product_category_shop1_idx` (`shop_idshop`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `alamat`
+-- AUTO_INCREMENT untuk tabel `alamat`
 --
 ALTER TABLE `alamat`
   MODIFY `idalamat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `booking`
+-- AUTO_INCREMENT untuk tabel `booking`
 --
 ALTER TABLE `booking`
   MODIFY `idbooking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `category`
+-- AUTO_INCREMENT untuk tabel `category`
 --
 ALTER TABLE `category`
   MODIFY `idcategory` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `chat`
+-- AUTO_INCREMENT untuk tabel `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `idchat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idchat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `failed_jobs`
+-- AUTO_INCREMENT untuk tabel `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `jadwal`
+-- AUTO_INCREMENT untuk tabel `jadwal`
 --
 ALTER TABLE `jadwal`
   MODIFY `idjadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
--- AUTO_INCREMENT for table `migrations`
+-- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `notification`
+-- AUTO_INCREMENT untuk tabel `notification`
 --
 ALTER TABLE `notification`
   MODIFY `idnotification` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `order`
+-- AUTO_INCREMENT untuk tabel `order`
 --
 ALTER TABLE `order`
-  MODIFY `idorder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idorder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `payment`
+-- AUTO_INCREMENT untuk tabel `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `idpayment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idpayment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `product`
+-- AUTO_INCREMENT untuk tabel `product`
 --
 ALTER TABLE `product`
   MODIFY `idproduct` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `product_image`
+-- AUTO_INCREMENT untuk tabel `product_image`
 --
 ALTER TABLE `product_image`
   MODIFY `idproduct_image` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `review`
+-- AUTO_INCREMENT untuk tabel `review`
 --
 ALTER TABLE `review`
-  MODIFY `idreview` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idreview` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `shop`
+-- AUTO_INCREMENT untuk tabel `shop`
 --
 ALTER TABLE `shop`
   MODIFY `idshop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `shop_product_category`
+-- AUTO_INCREMENT untuk tabel `shop_product_category`
 --
 ALTER TABLE `shop_product_category`
   MODIFY `idshop_product_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `alamat`
+-- Ketidakleluasaan untuk tabel `alamat`
 --
 ALTER TABLE `alamat`
   ADD CONSTRAINT `fk_alamat_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `booking`
+-- Ketidakleluasaan untuk tabel `booking`
 --
 ALTER TABLE `booking`
   ADD CONSTRAINT `fk_booking_product1` FOREIGN KEY (`product_idproduct`) REFERENCES `product` (`idproduct`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -760,34 +758,34 @@ ALTER TABLE `booking`
   ADD CONSTRAINT `fk_booking_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `cart`
+-- Ketidakleluasaan untuk tabel `cart`
 --
 ALTER TABLE `cart`
   ADD CONSTRAINT `fk_users_has_product_product1` FOREIGN KEY (`product_idproduct`) REFERENCES `product` (`idproduct`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_users_has_product_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `chat`
+-- Ketidakleluasaan untuk tabel `chat`
 --
 ALTER TABLE `chat`
   ADD CONSTRAINT `fk_chat_shop1` FOREIGN KEY (`shop_idshop`) REFERENCES `shop` (`idshop`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_chat_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `jadwal`
+-- Ketidakleluasaan untuk tabel `jadwal`
 --
 ALTER TABLE `jadwal`
   ADD CONSTRAINT `fk_jadwal_shop1` FOREIGN KEY (`shop_idshop`) REFERENCES `shop` (`idshop`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_jadwal_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `notification`
+-- Ketidakleluasaan untuk tabel `notification`
 --
 ALTER TABLE `notification`
   ADD CONSTRAINT `fk_notification_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `order`
+-- Ketidakleluasaan untuk tabel `order`
 --
 ALTER TABLE `order`
   ADD CONSTRAINT `fk_order_alamat1` FOREIGN KEY (`alamat_idalamat`) REFERENCES `alamat` (`idalamat`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -795,20 +793,20 @@ ALTER TABLE `order`
   ADD CONSTRAINT `fk_order_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `order_has_product`
+-- Ketidakleluasaan untuk tabel `order_has_product`
 --
 ALTER TABLE `order_has_product`
   ADD CONSTRAINT `fk_order_has_product_order1` FOREIGN KEY (`order_idorder`) REFERENCES `order` (`idorder`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_order_has_product_product1` FOREIGN KEY (`product_idproduct`) REFERENCES `product` (`idproduct`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `payment`
+-- Ketidakleluasaan untuk tabel `payment`
 --
 ALTER TABLE `payment`
   ADD CONSTRAINT `fk_payment_order1` FOREIGN KEY (`order_idorder`) REFERENCES `order` (`idorder`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `product`
+-- Ketidakleluasaan untuk tabel `product`
 --
 ALTER TABLE `product`
   ADD CONSTRAINT `fk_product_category1` FOREIGN KEY (`category_idcategory`) REFERENCES `category` (`idcategory`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -816,20 +814,20 @@ ALTER TABLE `product`
   ADD CONSTRAINT `fk_product_shop_product_category1` FOREIGN KEY (`shop_product_category_idshop_product_category`) REFERENCES `shop_product_category` (`idshop_product_category`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `product_bookmark`
+-- Ketidakleluasaan untuk tabel `product_bookmark`
 --
 ALTER TABLE `product_bookmark`
   ADD CONSTRAINT `fk_users_has_product1_product1` FOREIGN KEY (`product_idproduct`) REFERENCES `product` (`idproduct`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_users_has_product1_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `product_image`
+-- Ketidakleluasaan untuk tabel `product_image`
 --
 ALTER TABLE `product_image`
   ADD CONSTRAINT `fk_product_image_product1` FOREIGN KEY (`product_idproduct`) REFERENCES `product` (`idproduct`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `review`
+-- Ketidakleluasaan untuk tabel `review`
 --
 ALTER TABLE `review`
   ADD CONSTRAINT `fk_users_has_product_order1` FOREIGN KEY (`order_idorder`) REFERENCES `order` (`idorder`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -837,13 +835,13 @@ ALTER TABLE `review`
   ADD CONSTRAINT `fk_users_has_product_users2` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `shop`
+-- Ketidakleluasaan untuk tabel `shop`
 --
 ALTER TABLE `shop`
   ADD CONSTRAINT `fk_shop_users` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `shop_product_category`
+-- Ketidakleluasaan untuk tabel `shop_product_category`
 --
 ALTER TABLE `shop_product_category`
   ADD CONSTRAINT `fk_shop_product_category_shop1` FOREIGN KEY (`shop_idshop`) REFERENCES `shop` (`idshop`) ON DELETE NO ACTION ON UPDATE NO ACTION;

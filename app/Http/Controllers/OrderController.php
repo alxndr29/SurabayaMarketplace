@@ -13,6 +13,7 @@ class OrderController extends Controller
     public function verifikasiPembayaranUser(Request $request)
     {
         try {
+            // return $request->all();
             DB::table('payment')->where('idpayment', $request->get('idpayment'))->update(['verified_at' => date("Y-m-d H:i:s")]);
             DB::table('order')->where('idorder', $request->get('idorder'))->update(['status_order' => 'Menunggu Konfirmasi']);
             return redirect()->back()->with('sukses', 'Berhasil Verifikasi Pembayaran');

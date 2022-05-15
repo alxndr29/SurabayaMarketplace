@@ -51,8 +51,8 @@
                 @if($order->status_order == "Menunggu Verifikasi Pembayaran")
                 <form method="post" action="{{route('verifikasipembayaran.shop')}}">
                     @csrf
-                    <input type="hidden" name="idorder" value="{{$payment->idpayment}}">
-                    <input type="hidden" name="idpayment" value="{{$order->idorder}}">
+                    <input type="hidden" name="idpayment" value="{{$payment->idpayment}}">
+                    <input type="hidden" name="idorder" value="{{$order->idorder}}">
                     <button type="submit" class="btn btn-primary btn-sm mt-1">Verifikasi Pembayaran</button>
                 </form>
                 @else
